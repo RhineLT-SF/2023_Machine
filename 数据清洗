@@ -1,0 +1,875 @@
+Sub AdjustKeywordsToBlueInFolder()
+    Dim folderPath As String
+    Dim docPath As String
+    Dim doc As Document
+    
+    ' Set your folder path here
+    folderPath = "C:\YourFolderPath"
+    
+    docPath = Dir(folderPath & "\*.docx", vbNormal)
+    
+    While docPath <> ""
+        Set doc = Documents.Open(folderPath & "\" & docPath)
+        
+        AdjustKeywordsToBlue doc
+        
+        doc.Close SaveChanges:=wdSaveChanges
+        
+        docPath = Dir()
+    Wend
+End Sub
+
+Sub AdjustKeywordsToBlue(doc As Document)
+    Dim keywords As Object
+    Set keywords = CreateObject("Scripting.Dictionary")
+
+    ' Add your keywords and corresponding colors to the dictionary
+    keywords("摘要:") = RGB(0, 112, 192) 
+    keywords("关键词:") = RGB(0, 112, 192) 
+    keywords("doi:") = RGB(0, 112, 192)
+    keywords("基金项目:") = RGB(0, 112, 192)
+    keywords("收稿日期:") = RGB(0, 112, 192)
+    keywords("修回日期:") = RGB(0, 112, 192)
+    keywords("出版日期:") = RGB(0, 112, 192)
+    keywords("Abstract:") = RGB(0, 112, 192)
+    keywords("Key words:") = RGB(0, 112, 192)
+    ' Add more keywords and colors as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywords
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Font.Color = RGBToLong(keywords(keyword))
+            .Replacement.Font.Name = "黑体"  
+            .Replacement.Font.Bold = True
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+Function RGBToLong(rgb As Long) As Long
+    RGBToLong = rgb And &HFFFFFF
+End Function
+
+
+
+
+Sub AdjustKeywordsToBlueInFolder()
+    Dim folderPath As String
+    Dim docPath As String
+    Dim doc As Document
+    
+    ' Set your folder path here
+    folderPath = "C:\YourFolderPath"
+    
+    docPath = Dir(folderPath & "\*.docx", vbNormal)
+    
+    While docPath <> ""
+        Set doc = Documents.Open(folderPath & "\" & docPath)
+        
+        AdjustKeywordsToBlue doc
+        
+        doc.Close SaveChanges:=wdSaveChanges
+        
+        docPath = Dir()
+    Wend
+End Sub
+
+Sub AdjustKeywordsToBlue(doc As Document)
+    Dim keywords As Object
+    Set keywords = CreateObject("Scripting.Dictionary")
+
+    ' Add your keywords and corresponding colors to the dictionary
+    keywords("摘要:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("关键词:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("doi:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("基金项目:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("收稿日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("修回日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("出版日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("Abstract:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("Key words:") = Array(RGB(0, 112, 192), "Times New Roman")
+    ' Add more keywords and colors as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywords
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            '.Replacement.Font.Color = RGBToLong(keywords(keyword)(0))
+            .Replacement.Font.Name = keywords(keyword)(1)
+            .Replacement.Font.Bold = True
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+Function RGBToLong(rgb As Long) As Long
+    RGBToLong = rgb And &HFFFFFF
+End Function
+
+
+
+Sub AdjustKeywordsToBlueInFolder()
+    Dim folderPath As String
+    Dim docPath As String
+    Dim doc As Document
+    
+    ' Set your folder path here
+    folderPath = "./output"
+    
+    docPath = Dir(folderPath & "\*.docx", vbNormal)
+    
+    While docPath <> ""
+        Set doc = Documents.Open(folderPath & "\" & docPath)
+        
+        AdjustKeywordsToBlue doc
+        
+        doc.Close SaveChanges:=wdSaveChanges
+        
+        docPath = Dir()
+    Wend
+End Sub
+
+Sub AdjustKeywordsToBlue(doc As Document)
+    Dim keywords As Object
+    Set keywords = CreateObject("Scripting.Dictionary")
+
+    ' Add your keywords and corresponding colors to the dictionary
+    keywords("摘要:") = RGB(0, 112, 192) 
+    keywords("关键词:") = RGB(0, 112, 192) 
+    keywords("doi:") = RGB(0, 112, 192)
+    keywords("基金项目:") = RGB(0, 112, 192)
+    keywords("收稿日期:") = RGB(0, 112, 192)
+    keywords("修回日期:") = RGB(0, 112, 192)
+    keywords("出版日期:") = RGB(0, 112, 192)
+    keywords("Abstract:") = RGB(0, 112, 192)
+    keywords("Key words:") = RGB(0, 112, 192)
+    ' Add more keywords and colors as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywords
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Font.Color = RGBToLong(keywords(keyword))
+            .Replacement.Font.Bold = True
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+        If IsChinese(keyword) Then
+            doc.Content.Find.Replacement.Font.Name = "黑体"
+        Else
+            doc.Content.Find.Replacement.Font.Name = "Times New Roman"
+        End If
+        doc.Content.Find.Execute Replace:=wdReplaceAll
+    Next keyword
+End Sub
+
+Function RGBToLong(rgb As Long) As Long
+    RGBToLong = rgb And &HFFFFFF
+End Function
+
+Function IsChinese(str As String) As Boolean
+    Dim i As Integer
+    For i = 1 To Len(str)
+        If Asc(Mid(str, i, 1)) > 127 Then
+            IsChinese = True
+            Exit Function
+        End If
+    Next i
+    IsChinese = False
+End Function
+
+
+
+
+'''''''''''''''''''''''''''''''''''''''
+Sub AdjustKeywordsToBlueInFolder()
+    Dim folderPath As String
+    Dim docPath As String
+    Dim doc As Document
+    
+    ' Set your folder path here
+    folderPath = "./output"
+    
+    docPath = Dir(folderPath & "\*.docx", vbNormal)
+    
+    While docPath <> ""
+        Set doc = Documents.Open(folderPath & "\" & docPath)
+        
+        AdjustKeywordsToBlue doc
+        
+        doc.Close SaveChanges:=wdSaveChanges
+        
+        docPath = Dir()
+    Wend
+End Sub
+
+Sub AdjustKeywordsToBlue(doc As Document)
+    Dim keywords As Object
+    Set keywords = CreateObject("Scripting.Dictionary")
+
+    ' Add your keywords and corresponding colors to the dictionary
+    keywords("摘要:") = Array(rgb(0, 112, 192), "黑体")
+    keywords("关键词:") = Array(rgb(0, 112, 192), "黑体")
+    keywords("doi:") = Array(rgb(0, 112, 192), "Times New Roman")
+    keywords("基金项目:") = Array(rgb(0, 112, 192), "黑体")
+    keywords("收稿日期:") = Array(rgb(0, 112, 192), "黑体")
+    keywords("修回日期:") = Array(rgb(0, 112, 192), "黑体")
+    keywords("出版日期:") = Array(rgb(0, 112, 192), "黑体")
+    keywords("Abstract:") = Array(rgb(0, 112, 192), "Times New Roman")
+    keywords("Key words:") = Array(rgb(0, 112, 192), "Times New Roman")
+    ' Add more keywords and colors as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywords
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Font.Color = keywords(keyword)(0)
+            .Replacement.Font.Name = keywords(keyword)(1)
+            .Replacement.Font.Bold = True
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Sub AdjustKeywordsToBlueInFolder()
+    Dim folderPath As String
+    Dim docPath As String
+    Dim doc As Document
+    
+    ' Set your folder path here
+    folderPath = "./output"
+    
+    docPath = Dir(folderPath & "\*.docx", vbNormal)
+    
+    While docPath <> ""
+        Set doc = Documents.Open(folderPath & "\" & docPath)
+        
+        AdjustKeywordsToBlue doc
+        DeleteKeywords doc
+        
+        doc.Close SaveChanges:=wdSaveChanges
+        
+        docPath = Dir()
+    Wend
+End Sub
+Sub DeleteKeywords(doc As Document)
+    Dim keywordsToDelete As Variant
+    keywordsToDelete = Array("【_中文引文_】", "【_英文引文_】", "【_中文标题_】", "【_作者_】", "【_作者单位_】", "【_中文摘要_】", "【_中文关键词_】", "【_doi_】", "【_基金项目_】", "【_收稿日期_】", "【_修回日期_】", "【_出版日期_】", "【_英文标题_】", "【_作者英文名_】", "【_作者单位英文名称_】", "【_英文摘要_】", "【_英文关键词_】") ' Add more keywords to delete as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywordsToDelete
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Text = ""
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+Sub AdjustKeywordsToBlue(doc As Document)
+    Dim keywords As Object
+    Set keywords = CreateObject("Scripting.Dictionary")
+
+    ' Add your keywords and corresponding colors to the dictionary
+    keywords("摘要:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("关键词:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("doi:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("基金项目:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("收稿日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("修回日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("出版日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("Abstract:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("Key words:") = Array(RGB(0, 112, 192), "Times New Roman")
+    ' Add more keywords and colors as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywords
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Font.Color = keywords(keyword)(0)
+            .Replacement.Font.Name = keywords(keyword)(1)
+            .Replacement.Font.Bold = True
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Sub AdjustKeywordsToBlueInFolder()
+    Dim folderPath As String
+    Dim docPath As String
+    Dim doc As Document
+    
+    ' Set your folder path here
+    folderPath = "./output"
+    
+    docPath = Dir(folderPath & "\*.docx", vbNormal)
+    
+    While docPath <> ""
+        Set doc = Documents.Open(folderPath & "\" & docPath)
+        
+        AdjustKeywordsToBlue doc
+        DeleteKeywords doc
+        DeleteParagraphsWithKeywords doc
+        doc.Close SaveChanges:=wdSaveChanges
+        
+        docPath = Dir()
+    Wend
+End Sub
+
+
+Sub AdjustKeywordsToBlue(doc As Document)
+    Dim keywords As Object
+    Set keywords = CreateObject("Scripting.Dictionary")
+
+    ' Add your keywords and corresponding colors to the dictionary
+    keywords("摘要:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("关键词:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("doi:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("基金项目:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("收稿日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("修回日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("出版日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("Abstract:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("Key words:") = Array(RGB(0, 112, 192), "Times New Roman")
+    ' Add more keywords and colors as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywords
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Font.Color = keywords(keyword)(0)
+            .Replacement.Font.Name = keywords(keyword)(1)
+            .Replacement.Font.Bold = True
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+
+Sub DeleteKeywords(doc As Document)
+    Dim keywordsToDelete As Variant
+    keywordsToDelete = Array("【_中文引文_】", "【_英文引文_】", "【_中文标题_】", "【_作者_】", "【_作者单位_】", "【_中文摘要_】", "【_中文关键词_】", "【_doi_】", "【_基金项目_】", "【_收稿日期_】", "【_修回日期_】", "【_出版日期_】", "【_英文标题_】", "【_作者英文名_】", "【_作者单位英文名称_】", "【_英文摘要_】", "【_英文关键词_】") ' Add more keywords to delete as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywordsToDelete
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Text = ""
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+Sub DeleteParagraphsWithKeywords(doc As Document)
+    Dim keywordArray() As Variant
+    Dim paragraph As paragraph
+    Dim i As Long
+
+    ' Define keyword array
+    keywordArray = Array("【_待清除_】", "【_年_】", "【_卷_】", "【_期_】", "【_起始页_】", "【_结束页_】")
+
+    ' Loop through each paragraph in the active document
+    For Each paragraph In ActiveDocument.Paragraphs
+        ' Check if the paragraph contains any keyword
+        For i = LBound(keywordArray) To UBound(keywordArray)
+            If InStr(paragraph.Range.Text, keywordArray(i)) > 0 Then
+                ' Delete the paragraph if it contains the keyword
+                paragraph.Range.Delete
+                Exit For
+            End If
+        Next i
+    Next paragraph
+End Sub
+
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Sub AdjustKeywordsToBlueInFolder()
+    Dim folderPath As String
+    Dim docPath As String
+    Dim doc As Document
+    
+    ' Set your folder path here
+    folderPath = "./output"
+    
+    docPath = Dir(folderPath & "\*.docx", vbNormal)
+    
+    While docPath <> ""
+        Set doc = Documents.Open(folderPath & "\" & docPath)
+        
+        AdjustKeywordsToBlue doc
+        ModifyKeywordFont doc
+        DeleteKeywords doc
+        DeleteParagraphsWithKeywords doc
+        doc.Close SaveChanges:=wdSaveChanges
+        
+        docPath = Dir()
+    Wend
+End Sub
+
+
+Sub AdjustKeywordsToBlue(doc As Document)
+    Dim keywords As Object
+    Set keywords = CreateObject("Scripting.Dictionary")
+
+    ' Add your keywords and corresponding colors to the dictionary
+    keywords("摘要:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("关键词:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("doi:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("基金项目:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("收稿日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("修回日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("出版日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("Abstract:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("Key words:") = Array(RGB(0, 112, 192), "Times New Roman")
+    ' Add more keywords and colors as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywords
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Font.Color = keywords(keyword)(0)
+            .Replacement.Font.Name = keywords(keyword)(1)
+            .Replacement.Font.Bold = True
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+
+Sub DeleteKeywords(doc As Document)
+    Dim keywordsToDelete As Variant
+    keywordsToDelete = Array("【_中文引文_】", "【_英文引文_】", "【_中文标题_】", "【_作者_】", "【_作者单位_】", "【_中文摘要_】", "【_中文关键词_】", "【_doi_】", "【_基金项目_】", "【_收稿日期_】", "【_修回日期_】", "【_出版日期_】", "【_英文标题_】", "【_作者英文名_】", "【_作者单位英文名称_】", "【_英文摘要_】", "【_英文关键词_】") ' Add more keywords to delete as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywordsToDelete
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Text = ""
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+Sub DeleteParagraphsWithKeywords(doc As Document)
+    Dim keywordArray() As Variant
+    Dim paragraph As paragraph
+    Dim i As Long
+
+    ' Define keyword array
+    keywordArray = Array("【_待清除_】", "【_年_】", "【_卷_】", "【_期_】", "【_起始页_】", "【_结束页_】")
+
+    ' Loop through each paragraph in the active document
+    For Each paragraph In ActiveDocument.Paragraphs
+        ' Check if the paragraph contains any keyword
+        For i = LBound(keywordArray) To UBound(keywordArray)
+            If InStr(paragraph.Range.Text, keywordArray(i)) > 0 Then
+                ' Delete the paragraph if it contains the keyword
+                paragraph.Range.Delete
+                Exit For
+            End If
+        Next i
+    Next paragraph
+End Sub
+
+
+Sub ModifyKeywordFont(doc As Document)
+    Dim keywordList As Variant
+    Dim keyword As Variant
+    Dim para As paragraph
+    Dim rng As Range
+    Dim i As Integer
+
+    '设置关键词列表及对应字体样式
+    keywordList = Array("【_中文引文_】", "【_英文引文_】")
+    fontStyles = Array("楷体", "Times New Roman")
+
+    '循环遍历所有段落
+    For Each para In doc.Paragraphs
+
+        '在段落中查找关键词
+        For Each keyword In keywordList
+            Set rng = para.Range
+
+            '循环查找并修改字体格式
+            Do While rng.Find.Execute(FindText:=keyword, Forward:=True) = True
+
+                ' 找到关键词在关键词列表中的索引位置
+                For i = 0 To UBound(keywordList)
+                    If keyword = keywordList(i) Then
+                        rng.Font.Name = fontStyles(i)
+                        Exit For
+                    End If
+                Next i
+
+                rng.Collapse wdCollapseEnd
+            Loop
+        Next keyword
+
+    Next para
+End Sub
+
+'''''''''''''''''''''''''''''''''''''''''''''''
+Sub AdjustKeywordsToBlueInFolder()
+    Dim folderPath As String
+    Dim docPath As String
+    Dim doc As Document
+    
+    ' Set your folder path here
+    folderPath = "./output"
+    
+    docPath = Dir(folderPath & "\*.docx", vbNormal)
+    
+    While docPath <> ""
+        Set doc = Documents.Open(folderPath & "\" & docPath)
+        
+        AdjustKeywordsToBlue doc
+        ModifyKeywordFont doc
+        DeleteKeywords doc
+        DeleteParagraphsWithKeywords doc
+        doc.Close SaveChanges:=wdSaveChanges
+        
+        docPath = Dir()
+    Wend
+End Sub
+
+
+Sub AdjustKeywordsToBlue(doc As Document)
+    Dim keywords As Object
+    Set keywords = CreateObject("Scripting.Dictionary")
+
+    ' Add your keywords and corresponding colors to the dictionary
+    keywords("摘要:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("关键词:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("doi:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("基金项目:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("收稿日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("修回日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("出版日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("Abstract:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("Key words:") = Array(RGB(0, 112, 192), "Times New Roman")
+    ' Add more keywords and colors as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywords
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Font.Color = keywords(keyword)(0)
+            .Replacement.Font.Name = keywords(keyword)(1)
+            .Replacement.Font.Bold = True
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+
+Sub DeleteKeywords(doc As Document)
+    Dim keywordsToDelete As Variant
+    keywordsToDelete = Array("【_中文引文_】", "【_英文引文_】", "【_中文标题_】", "【_作者_】", "【_作者单位_】", "【_中文摘要_】", "【_中文关键词_】", "【_doi_】", "【_基金项目_】", "【_收稿日期_】", "【_修回日期_】", "【_出版日期_】", "【_英文标题_】", "【_作者英文名_】", "【_作者单位英文名称_】", "【_英文摘要_】", "【_英文关键词_】") ' Add more keywords to delete as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywordsToDelete
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Text = ""
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+Sub DeleteParagraphsWithKeywords(doc As Document)
+    Dim keywordArray() As Variant
+    Dim paragraph As paragraph
+    Dim i As Long
+
+    ' Define keyword array
+    keywordArray = Array("【_待清除_】", "【_年_】", "【_卷_】", "【_期_】", "【_起始页_】", "【_结束页_】")
+
+    ' Loop through each paragraph in the active document
+    For Each paragraph In ActiveDocument.Paragraphs
+        ' Check if the paragraph contains any keyword
+        For i = LBound(keywordArray) To UBound(keywordArray)
+            If InStr(paragraph.Range.Text, keywordArray(i)) > 0 Then
+                ' Delete the paragraph if it contains the keyword
+                paragraph.Range.Delete
+                Exit For
+            End If
+        Next i
+    Next paragraph
+End Sub
+
+
+
+
+Sub ModifyKeywordFont(doc As Document)
+    Dim keywordList As Variant
+    Dim keyword As Variant
+    Dim para As paragraph
+    Dim rng As Range
+    Dim i As Integer
+
+    ' Set the list of keywords and corresponding font styles
+    keywordList = Array("【_中文引文_】", "【_英文引文_】")
+    fontStyles = Array("楷体", "Times New Roman")
+
+    ' Loop through all paragraphs in the document
+    For Each para In doc.Paragraphs
+        Set rng = para.Range
+
+        ' Loop through all keywords
+        For Each keyword In keywordList
+            ' If the keyword is found in the paragraph
+            If InStr(1, rng.Text, keyword) Then
+                ' Find the index of the keyword in the keyword list
+                For i = 0 To UBound(keywordList)
+                    If keyword = keywordList(i) Then
+                        ' Apply the corresponding font style to the entire paragraph
+                        para.Range.Font.Name = fontStyles(i)
+                        Exit For
+                    End If
+                Next i
+            End If
+        Next keyword
+    Next para
+End Sub
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Sub AdjustKeywordsToBlueInFolder()
+    Dim folderPath As String
+    Dim docPath As String
+    Dim doc As Document
+    
+    ' Set your folder path here
+    folderPath = "./output"
+    
+    docPath = Dir(folderPath & "\*.docx", vbNormal)
+    
+    While docPath <> ""
+        Set doc = Documents.Open(folderPath & "\" & docPath)
+        
+        AdjustKeywordsToBlue doc
+        ModifyKeywordFont doc
+        DeleteKeywords doc
+        DeleteParagraphsWithKeywords doc
+        doc.Close SaveChanges:=wdSaveChanges
+        
+        docPath = Dir()
+    Wend
+End Sub
+
+
+Sub AdjustKeywordsToBlue(doc As Document)
+    Dim keywords As Object
+    Set keywords = CreateObject("Scripting.Dictionary")
+
+    ' Add your keywords and corresponding colors to the dictionary
+    keywords("摘要:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("关键词:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("doi:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("基金项目:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("收稿日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("修回日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("出版日期:") = Array(RGB(0, 112, 192), "黑体")
+    keywords("Abstract:") = Array(RGB(0, 112, 192), "Times New Roman")
+    keywords("Key words:") = Array(RGB(0, 112, 192), "Times New Roman")
+    ' Add more keywords and colors as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywords
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Font.Color = keywords(keyword)(0)
+            .Replacement.Font.Name = keywords(keyword)(1)
+            .Replacement.Font.Bold = True
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+
+Sub DeleteKeywords(doc As Document)
+    Dim keywordsToDelete As Variant
+    keywordsToDelete = Array("【_中文引文_】", "【_英文引文_】", "【_中文标题_】", "【_作者_】", "【_作者单位_】", "【_中文摘要_】", "【_中文关键词_】", "【_doi_】", "【_基金项目_】", "【_收稿日期_】", "【_修回日期_】", "【_出版日期_】", "【_英文标题_】", "【_作者英文名_】", "【_作者单位英文名称_】", "【_英文摘要_】", "【_英文关键词_】") ' Add more keywords to delete as needed
+
+    Dim keyword As Variant
+
+    For Each keyword In keywordsToDelete
+        With doc.Content.Find
+            .ClearFormatting
+            .Text = keyword
+            .Replacement.ClearFormatting
+            .Replacement.Text = ""
+            .Forward = True
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchCase = True
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next keyword
+End Sub
+
+Sub DeleteParagraphsWithKeywords(doc As Document)
+    Dim keywordArray() As Variant
+    Dim paragraph As paragraph
+    Dim i As Long
+
+    ' Define keyword array
+    keywordArray = Array("【_待清除_】", "【_年_】", "【_卷_】", "【_期_】", "【_起始页_】", "【_结束页_】")
+
+    ' Loop through each paragraph in the active document
+    For Each paragraph In ActiveDocument.Paragraphs
+        ' Check if the paragraph contains any keyword
+        For i = LBound(keywordArray) To UBound(keywordArray)
+            If InStr(paragraph.Range.Text, keywordArray(i)) > 0 Then
+                ' Delete the paragraph if it contains the keyword
+                paragraph.Range.Delete
+                Exit For
+            End If
+        Next i
+    Next paragraph
+End Sub
+
+
+
+
+Sub ModifyKeywordFont(doc As Document)
+    Dim keywordList As Variant
+    Dim keyword As Variant
+    Dim para As paragraph
+    Dim rng As Range
+    Dim i As Integer
+
+    ' Set the list of keywords and corresponding font styles
+    keywordList = Array("【_中文引文_】", "【_英文引文_】")
+    fontStyles = Array("楷体", "Times New Roman")
+
+    ' Loop through all paragraphs in the document
+    For Each para In doc.Paragraphs
+        Set rng = para.Range
+
+        ' Loop through all keywords
+        For Each keyword In keywordList
+            ' If the keyword is found in the paragraph
+            If InStr(1, rng.Text, keyword) Then
+                ' Find the index of the keyword in the keyword list
+                For i = 0 To UBound(keywordList)
+                    If keyword = keywordList(i) Then
+                        ' Apply the corresponding font style to the entire paragraph
+                        para.Range.Font.Name = fontStyles(i)
+                        Exit For
+                    End If
+                Next i
+            End If
+        Next keyword
+    Next para
+End Sub
+
